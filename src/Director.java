@@ -1,7 +1,5 @@
 
 public class Director extends Person{
-
-
 	public Movie moviesDirected;
 	
 	public Director(String name, int birthYear, int awardCount) {
@@ -9,4 +7,7 @@ public class Director extends Person{
 		// TODO Auto-generated constructor stub
 	}
 
+	public Movie getMoviesDirected() {
+		return moviesDirected;
+	}
 }
