@@ -1,31 +1,29 @@
-/*
- * CTIS252
- * Owner : Nese Sahin Ozcelik
- *
- */
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Vector;
-import java.util.concurrent.SynchronousQueue;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 public class DB {
-
 	private static Connection connection=null;
 	private static Statement statement=null;
-	private static String username="std";
-	private static String pw="";
 	
 	public static void initializeDB(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			System.out.println("MYSQL DBMS connection provided");
 			
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/ctis252",username,pw);
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/ctis252","std","");
+			System.out.println("Database connection is provided");
+			
+			statement = connection.createStatement();
+			System.out.println("Statement object created");			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -35,7 +33,6 @@ public class DB {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}	
@@ -44,9 +41,8 @@ public class DB {
 	public static ResultSet executeQ(String sql) {
 		ResultSet rs=null;
 		try {
-			rs = statement.executeQuery(sql);
+			rs = statement.executeQuery(sql); //select * from student
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return rs;
@@ -56,9 +52,8 @@ public class DB {
 	public static int executeU(String sql) {
 		int res=0;
 		try {
-			res = statement.executeUpdate(sql);
+			res = statement.executeUpdate(sql); 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return res;
@@ -92,25 +87,22 @@ public class DB {
 				dtm.setDataVector(rows, header);				
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		return dtm;
 	}
 	
-	public static Vector<String> getTableNames(){
+	public static Vector<String> getTableNames(String sql ){
 		
 		Vector<String> tablenames=new Vector<String>();
 		
-		String sql = "show tables";
 		try {
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()){
 				tablenames.add(rs.getString(1));				
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -126,14 +118,13 @@ public class DB {
 				typenames.add(rs.getString(index));				
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 		return (typenames);		
 	}
 	
 	public static DefaultComboBoxModel<String> getColumnAtToFillComboBox(String sql, int index) {		
-		DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
+		DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel();
 		
 		try {
 			ResultSet rs = statement.executeQuery(sql);
@@ -141,7 +132,6 @@ public class DB {
 				dcbm.addElement(rs.getString(index));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return (dcbm);		

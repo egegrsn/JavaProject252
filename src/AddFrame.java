@@ -4,10 +4,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AddFrame extends JFrame {
 
@@ -17,7 +20,7 @@ public class AddFrame extends JFrame {
 	private JTextField genreTF;
 	private JTextField directorTF;
 	private JLabel lblRating;
-	private JTextField textField;
+	private JTextField ratingTF;
 	private JButton btnAddActors;
 	private JButton btnNewButton;
 	private JPanel panel;
@@ -34,6 +37,10 @@ public class AddFrame extends JFrame {
 		contentPane.setLayout(null);
 		
 		btnNewButton = new JButton("Add Movie");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnNewButton.setBounds(331, 13, 97, 52);
 		contentPane.add(btnNewButton);
 		
@@ -83,10 +90,10 @@ public class AddFrame extends JFrame {
 		lblRating.setBounds(22, 150, 118, 16);
 		panel.add(lblRating);
 		
-		textField = new JTextField();
-		textField.setBounds(122, 144, 116, 22);
-		panel.add(textField);
-		textField.setColumns(10);
+		ratingTF = new JTextField();
+		ratingTF.setBounds(122, 144, 116, 22);
+		panel.add(ratingTF);
+		ratingTF.setColumns(10);
 		
 		btnAddActors = new JButton("Add Actors");
 		btnAddActors.setBounds(12, 206, 97, 25);

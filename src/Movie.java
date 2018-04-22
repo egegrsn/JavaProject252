@@ -26,8 +26,6 @@ public class Movie {
 				+ rating + ", actorArray=" + actorArray + ", movieId=" + movieId + "]";
 	}
 	
-	
-	
 
 	@Override
 	public int hashCode() {
