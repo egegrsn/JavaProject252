@@ -32,7 +32,8 @@ public class Actor extends Person {
 
 	@Override
 	public String toString(){
-		return "|Actor|\nName: " + getName()
-				+ "";
+		return "|Actor|\nName : " + getName()
+				+ "\nBirth Year : " + getBirthYear()
+				+ "\nAward Count : " + getAwardCount();
 	}
 }
