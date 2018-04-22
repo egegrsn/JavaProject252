@@ -4,12 +4,14 @@ public class Person {
 	private String name;
 	private int birthYear;
 	private int awardCount;
+	private int movieId;
 	
-	public Person(String name, int birthYear, int awardCount) {
+	public Person(String name, int birthYear, int awardCount,int movieId) {
 		
 		this.name = name;
 		this.birthYear = birthYear;
 		this.awardCount = awardCount;
+		this.movieId= movieId;
 	}
 
 	public String getName() {
@@ -23,6 +25,11 @@ public class Person {
 	public int getAwardCount() {
 		return awardCount;
 	}
+	
+	public int getMovieId() {
+		return movieId;
+	}
+
 
 	@Override
 	public boolean equals(Object o) {
@@ -45,7 +52,13 @@ public class Person {
 	}
 
 	@Override
-	public String toString(){
-		return "";
+	public String toString() {
+		return "Person [name=" + name + ", birthYear=" + birthYear + ", awardCount=" + awardCount + ", movieId="
+				+ movieId + "]";
 	}
-}
+
+	
+		
+	}
+
+	
