@@ -1,12 +1,12 @@
 
-public class Person {
+public class Person implements Comparable<Person>{
 
 	private String name;
 	private int birthYear;
 	private int awardCount;
 	private int movieId;
-	
-	public Person(String name, int birthYear, int awardCount,int movieId) {
+
+	public Person(String name, int birthYear, int awardCount, int movieId) {
 		
 		this.name = name;
 		this.birthYear = birthYear;
@@ -57,8 +57,10 @@ public class Person {
 				+ movieId + "]";
 	}
 
-	
-		
+	@Override
+	public int compareTo(Person o) {
+		return getName().compareTo(o.getName());
 	}
+}
 
 	
