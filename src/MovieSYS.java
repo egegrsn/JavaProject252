@@ -23,9 +23,9 @@ public class MovieSYS {
 		return dcbm;
 	}
 	
-public static int insert(int id,String name,String year,String genre,String director,String rating,String actor) {
+public static int insert(int id,String name,String year,String genre,String director,String rating) {
 		
-		String query = "insert into ctis252.movie values"+"("+id+",'"+name+"','"+year+"','"+genre+"','"+director+"','"+rating+"','"+actor+"')"; //query needs to change.
+		String query = "insert into ctis252.movie values"+"("+id+",'"+name+"','"+year+"','"+genre+"','"+director+"','"+rating+"')"; //query needs to change.
 		System.out.println(query);
 		return DB.executeU(query);
 	}
