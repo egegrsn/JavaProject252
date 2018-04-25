@@ -8,7 +8,7 @@ public class MovieSYS {
 	public static HashMap<Integer,Movie> movieList = new HashMap<Integer,Movie>();
 	
 	public static DefaultTableModel getAllMovies(){
-		String sql="select * from movie";
+		String sql="select * from student";
 		DefaultTableModel dtm = DB.showTable(sql);
 		return dtm;
 	}
@@ -40,7 +40,7 @@ public static int insert(int id,String name,String year,String genre,String dire
 	public static int delete(int id)
 	{
 	
-		String query = "delete from movie where id= " + id;	
+		String query = "delete from movie where id=" + id;	
 		return DB.executeU(query);
 	}
 

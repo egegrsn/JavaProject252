@@ -18,115 +18,130 @@ import javax.swing.table.DefaultTableModel;
 
 import java.awt.Color;
 import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.MatteBorder;
 
 public class MainFrame extends JFrame {
 
 	private JPanel contentPane;
 	AddFrame af = new AddFrame(this);
-	private static JTable table;
+	private JTable table;
 	private JTextField deleteTF;
+	DefaultTableModel dtm = new DefaultTableModel();
+	private JScrollPane scrollPane;
 	
 
 	public MainFrame() {
 		setTitle("Movie Archive");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 662, 451);
+		setBounds(100, 100, 823, 514);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setViewportBorder(new LineBorder(new Color(0, 0, 0)));
-		scrollPane.setBounds(12, 105, 412, 273);
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(12, 104, 781, 129);
 		contentPane.add(scrollPane);
 
 	
 		
-		setTable(new JTable());
-		scrollPane.setColumnHeaderView(getTable());
+		table= new JTable();
+		table.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		scrollPane.setViewportView(table);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setLayout(null);
-		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_1.setBounds(436, 105, 144, 93);
-		contentPane.add(panel_1);
+		JPanel orderPanel = new JPanel();
+		orderPanel.setLayout(null);
+		orderPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		orderPanel.setBounds(12, 257, 229, 129);
+		contentPane.add(orderPanel);
 		
 		JLabel lblOrderBy = new JLabel("Order Movies:");
 		lblOrderBy.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblOrderBy.setBounds(6, 7, 101, 17);
-		panel_1.add(lblOrderBy);
+		orderPanel.add(lblOrderBy);
 		
 		JComboBox OrderComboBox = new JComboBox();
 		OrderComboBox.setBounds(6, 46, 131, 22);
-		panel_1.add(OrderComboBox);
+		orderPanel.add(OrderComboBox);
+		
+		JButton orderBtn = new JButton("Order");
+		orderBtn.setBounds(10, 91, 97, 25);
+		orderPanel.add(orderBtn);
 		
 		JButton btnShow = new JButton("SHOW MOVIES");
 		btnShow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				DB.initializeDB();
-				DefaultTableModel dtm = MovieSYS.getAllMovies();
-				getTable().setModel(dtm);
+				String query="select * from movie";
+				dtm = DB.showTable(query);
+				table.setModel(dtm);
 			}
 		});
 		btnShow.setBounds(12, 26, 144, 51);
 		contentPane.add(btnShow);
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.setBounds(436, 210, 149, 92);
-		contentPane.add(panel);
-		panel.setLayout(null);
+		JPanel choosePanel = new JPanel();
+		choosePanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		choosePanel.setBounds(253, 257, 229, 129);
+		contentPane.add(choosePanel);
+		choosePanel.setLayout(null);
 		
 		JLabel lblChooseMovie = new JLabel("Choose a Movie:");
 		lblChooseMovie.setBounds(6, 7, 101, 17);
-		panel.add(lblChooseMovie);
+		choosePanel.add(lblChooseMovie);
 		lblChooseMovie.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JComboBox MovieListComboBox = new JComboBox();
-		MovieListComboBox.setBounds(6, 46, 131, 22);
-		panel.add(MovieListComboBox);
+		MovieListComboBox.setBounds(6, 46, 193, 22);
+		choosePanel.add(MovieListComboBox);
 		
-		JButton btnAdd = new JButton("ADD");
+		JButton btnAdd = new JButton("Add Movie");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				af.setVisible(true);
 			}
 		});
-		btnAdd.setBounds(436, 64, 144, 25);
+		btnAdd.setBounds(361, 415, 144, 25);
 		contentPane.add(btnAdd);
-		
-		JButton btnDelete = new JButton("DELETE");
-		btnDelete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			int id = Integer.parseInt(deleteTF.getText());
-			MovieSYS.delete(id);
-			DefaultTableModel dtm = MovieSYS.getAllMovies();
-			getTable().setModel(dtm);
-			}
-		});
-		btnDelete.setBounds(441, 353, 144, 25);
-		contentPane.add(btnDelete);
 		
 		DefaultComboBoxModel dcbm = MovieSYS.getItemsToFillComboBox(2);
 		MovieListComboBox.setModel(dcbm);
 		
+		JButton btnNewButton = new JButton("Show Movie");
+		btnNewButton.setBounds(10, 91, 155, 25);
+		choosePanel.add(btnNewButton);
+		
+		JPanel deletePanel = new JPanel();
+		deletePanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		deletePanel.setBounds(494, 258, 229, 90);
+		contentPane.add(deletePanel);
+		deletePanel.setLayout(null);
+		
 		deleteTF = new JTextField();
-		deleteTF.setBounds(446, 318, 116, 22);
-		contentPane.add(deleteTF);
+		deleteTF.setBounds(44, 13, 116, 22);
+		deletePanel.add(deleteTF);
 		deleteTF.setColumns(10);
+		
+		JButton btnDelete = new JButton("DELETE");
+		btnDelete.setBounds(12, 48, 75, 25);
+		deletePanel.add(btnDelete);
+		
+		JLabel lblid = new JLabel("ID:");
+		lblid.setBounds(12, 16, 34, 16);
+		deletePanel.add(lblid);
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			int id = Integer.parseInt(deleteTF.getText());
+			MovieSYS.delete(id);
+			String query="select * from movie";
+			dtm = DB.showTable(query);
+			table.setModel(dtm);
+			}
+		});
 			
 		
 		
-	}
-
-
-	public static JTable getTable() {
-		return table;
-	}
-
-
-	public void setTable(JTable table) {
-		this.table = table;
 	}
 }
