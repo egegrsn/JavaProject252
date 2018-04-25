@@ -1,5 +1,5 @@
 
-public class Actor extends Person {
+public class Actor extends Person{
 
 	private Movie moviesAct;
 

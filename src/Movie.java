@@ -1,7 +1,8 @@
 
-public class Movie {
+public class Movie implements Comparable<Movie>{
 
 	private String name;
+
 	private int year;
 	private String genre;
 	private Director director;
@@ -140,8 +141,8 @@ public class Movie {
 		this.movieId = movieId;
 	}
 
-
-
-
-	
+	@Override
+	public int compareTo(Movie o) {
+		return getName().compareTo(o.getName());
+	}
 }
