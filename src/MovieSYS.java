@@ -8,7 +8,8 @@ public class MovieSYS {
 	public static HashMap<Integer,Movie> movieList = new HashMap<Integer,Movie>();
 	
 	public static DefaultTableModel getAllMovies(){
-		String sql="select * from student";
+		DB.initializeDB();
+		String sql="select * from movie";
 		DefaultTableModel dtm = DB.showTable(sql);
 		return dtm;
 	}
@@ -23,26 +24,36 @@ public class MovieSYS {
 		return dcbm;
 	}
 	
-public static int insert(int id,String name,String year,String genre,String director,String rating) {
+public static int insert(String name,String year,String genre,String director,String rating) {
 		
-		String query = "insert into ctis252.movie values"+"("+id+",'"+name+"','"+year+"','"+genre+"','"+director+"','"+rating+"')"; //query needs to change.
-		System.out.println(query);
-		return DB.executeU(query);
+		String sql = "insert into `ctis252`.`movie` values"+"('"+10+"','"+name+"','"+year+"','"+genre+"','"+director+"','"+rating+"')"; //Id needs auto increment.
+		System.out.println(sql);
+		return DB.executeU(sql);
 	}
    
-	public static int update(int id,String name,String year,String genre,String director,String rating)
+	public static DefaultTableModel update(int id,String name,String year,String genre,String director,String rating)
 	{		
-		String query = "update movie set name='"+name+"', year='"+year+"', genre='"+genre+"', director='"+director+"' where id="+id;//query needs to change.
-		System.out.println(query);
-		return DB.executeU(query);
+		String sql = "update ctis252`.`movie` set name='"+name+"', year='"+year+"', genre='"+genre+"', director='"+director+"' where id="+id;//sql needs to change.
+		System.out.println(sql);
+		DB.executeU(sql);
+		DefaultTableModel dtm = DB.showTable(sql);
+		return dtm;				
 	}
 	
-	public static int delete(int id)
+	public static DefaultTableModel delete(int id)
 	{
-	
-		String query = "delete from movie where id=" + id;	
-		return DB.executeU(query);
+		String sql = "delete from movie where id="+id;
+		DB.executeU(sql);
+		sql = "select * from movie";	
+		DefaultTableModel dtm = DB.showTable(sql);
+		return dtm;		
 	}
 
+	public static DefaultTableModel find(String key) {
+		String sql = "select * from movie where name like '%"+key+"%'";
+		System.out.println(sql);
+		DefaultTableModel dtm = DB.showTable(sql);
+		return dtm;
+	}
 	
 }

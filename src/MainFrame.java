@@ -35,14 +35,14 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		setTitle("Movie Archive");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 823, 514);
+		setBounds(100, 100, 823, 380);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 104, 781, 129);
+		scrollPane.setBounds(12, 31, 781, 129);
 		contentPane.add(scrollPane);
 
 	
@@ -54,7 +54,7 @@ public class MainFrame extends JFrame {
 		JPanel orderPanel = new JPanel();
 		orderPanel.setLayout(null);
 		orderPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		orderPanel.setBounds(12, 257, 229, 129);
+		orderPanel.setBounds(12, 183, 229, 129);
 		contentPane.add(orderPanel);
 		
 		JLabel lblOrderBy = new JLabel("Order Movies:");
@@ -63,28 +63,38 @@ public class MainFrame extends JFrame {
 		orderPanel.add(lblOrderBy);
 		
 		JComboBox OrderComboBox = new JComboBox();
+		OrderComboBox.setModel(new DefaultComboBoxModel(new String[] {"Id", "Name", "Genre", "Year", "Director", "Rating Ascending", "Rating Descending"}));
+		OrderComboBox.setSelectedIndex(0);
 		OrderComboBox.setBounds(6, 46, 131, 22);
 		orderPanel.add(OrderComboBox);
 		
 		JButton orderBtn = new JButton("Order");
+		orderBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String selected = OrderComboBox.getSelectedItem().toString();
+				String sql;
+				if(selected.equalsIgnoreCase("Rating Descending")){
+					sql = "select * from movie order by rating DESC";
+				}
+				else if(selected.equalsIgnoreCase("Rating Ascending")){
+					sql = "select * from movie order by rating ASC";
+				}
+				else{
+					sql = "select * from movie order by "+selected;
+				}
+				
+				dtm = DB.showTable(sql);
+				table.setModel(dtm);
+				
+			}
+		});
 		orderBtn.setBounds(10, 91, 97, 25);
 		orderPanel.add(orderBtn);
 		
-		JButton btnShow = new JButton("SHOW MOVIES");
-		btnShow.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				DB.initializeDB();
-				String query="select * from movie";
-				dtm = DB.showTable(query);
-				table.setModel(dtm);
-			}
-		});
-		btnShow.setBounds(12, 26, 144, 51);
-		contentPane.add(btnShow);
 		
 		JPanel choosePanel = new JPanel();
 		choosePanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		choosePanel.setBounds(253, 257, 229, 129);
+		choosePanel.setBounds(253, 183, 229, 129);
 		contentPane.add(choosePanel);
 		choosePanel.setLayout(null);
 		
@@ -103,19 +113,23 @@ public class MainFrame extends JFrame {
 				af.setVisible(true);
 			}
 		});
-		btnAdd.setBounds(361, 415, 144, 25);
+		btnAdd.setBounds(494, 287, 144, 25);
 		contentPane.add(btnAdd);
 		
 		DefaultComboBoxModel dcbm = MovieSYS.getItemsToFillComboBox(2);
 		MovieListComboBox.setModel(dcbm);
 		
 		JButton btnNewButton = new JButton("Show Movie");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnNewButton.setBounds(10, 91, 155, 25);
 		choosePanel.add(btnNewButton);
 		
 		JPanel deletePanel = new JPanel();
 		deletePanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		deletePanel.setBounds(494, 258, 229, 90);
+		deletePanel.setBounds(494, 184, 229, 90);
 		contentPane.add(deletePanel);
 		deletePanel.setLayout(null);
 		
@@ -134,14 +148,20 @@ public class MainFrame extends JFrame {
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			int id = Integer.parseInt(deleteTF.getText());
-			MovieSYS.delete(id);
-			String query="select * from movie";
-			dtm = DB.showTable(query);
+			dtm = MovieSYS.delete(id);
 			table.setModel(dtm);
 			}
 		});
 			
-		
+		setTableContent();
 		
 	}
+	
+
+	public void setTableContent(){
+		DefaultTableModel dtm = MovieSYS.getAllMovies();
+		table.setModel(dtm);
+	}
+	
+
 }

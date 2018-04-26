@@ -21,9 +21,9 @@ public class AddFrame extends JFrame {
 	private JTextField directorTF;
 	private JLabel lblRating;
 	private JTextField ratingTF;
-	private JButton btnAddActors;
 	private JButton btnNewButton;
 	private JPanel panel;
+	DefaultTableModel dtm = new DefaultTableModel();
 	ActorFrame acf = new ActorFrame(this);
 
 	
@@ -38,7 +38,9 @@ public class AddFrame extends JFrame {
 		
 		btnNewButton = new JButton("Add Movie");
 		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {	
+				int res=MovieSYS.insert(nameTF.getText(), yearTF.getText(),genreTF.getText(),directorTF.getText(), ratingTF.getText());
+				
 			}
 		});
 		btnNewButton.setBounds(331, 13, 97, 52);
@@ -95,8 +97,13 @@ public class AddFrame extends JFrame {
 		panel.add(ratingTF);
 		ratingTF.setColumns(10);
 		
-		btnAddActors = new JButton("Add Actors");
-		btnAddActors.setBounds(12, 206, 97, 25);
-		panel.add(btnAddActors);
+		JButton btnClose = new JButton("Close");
+		btnClose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnClose.setBounds(331, 231, 97, 25);
+		contentPane.add(btnClose);
 	}
 }
