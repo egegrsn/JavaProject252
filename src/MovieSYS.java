@@ -24,20 +24,18 @@ public class MovieSYS {
 		return dcbm;
 	}
 	
-public static int insert(String name,String year,String genre,String director,String rating) {
+public static int insert(int id,String name,String year,String genre,String director,String rating) {
 		
-		String sql = "insert into `ctis252`.`movie` values"+"('"+10+"','"+name+"','"+year+"','"+genre+"','"+director+"','"+rating+"')"; //Id needs auto increment.
+		String sql = "insert into `ctis252`.`movie` values"+"('"+id+"','"+name+"','"+genre+"','"+year+"','"+director+"','"+rating+"')";
 		System.out.println(sql);
 		return DB.executeU(sql);
 	}
    
-	public static DefaultTableModel update(int id,String name,String year,String genre,String director,String rating)
+	public static int update(int id,String name,String year,String genre,String director,String rating)
 	{		
-		String sql = "update ctis252`.`movie` set name='"+name+"', year='"+year+"', genre='"+genre+"', director='"+director+"' where id="+id;//sql needs to change.
+		String sql = "update `ctis252`.`movie` set name='"+name+"', year='"+year+"', genre='"+genre+"', director='"+director+"' where id="+id;
 		System.out.println(sql);
-		DB.executeU(sql);
-		DefaultTableModel dtm = DB.showTable(sql);
-		return dtm;				
+		return DB.executeU(sql);			
 	}
 	
 	public static DefaultTableModel delete(int id)

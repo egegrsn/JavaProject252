@@ -153,10 +153,8 @@ public class MainFrame extends JFrame {
 			}
 		});
 			
-		setTableContent();
-		
+		setTableContent();		
 	}
-	
 
 	public void setTableContent(){
 		DefaultTableModel dtm = MovieSYS.getAllMovies();
