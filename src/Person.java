@@ -6,11 +6,10 @@ public class Person implements Comparable<Person>{
 	private int awardCount;
 	private int movieId;
 
-	public Person(String name, int birthYear, int awardCount, int movieId) {
+	public Person(String name, int birthYear,int movieId) {
 		
 		this.name = name;
 		this.birthYear = birthYear;
-		this.awardCount = awardCount;
 		this.movieId= movieId;
 	}
 
@@ -22,9 +21,6 @@ public class Person implements Comparable<Person>{
 		return birthYear;
 	}
 
-	public int getAwardCount() {
-		return awardCount;
-	}
 	
 	public int getMovieId() {
 		return movieId;
@@ -39,7 +35,6 @@ public class Person implements Comparable<Person>{
 		Person person = (Person) o;
 
 		if (birthYear != person.birthYear) return false;
-		if (awardCount != person.awardCount) return false;
 		return name != null ? name.equals(person.name) : person.name == null;
 	}
 
@@ -53,7 +48,7 @@ public class Person implements Comparable<Person>{
 
 	@Override
 	public String toString() {
-		return "Person [name=" + name + ", birthYear=" + birthYear + ", awardCount=" + awardCount + ", movieId="
+		return "Person [name=" + name + ", birthYear=" + birthYear + ", movieId="
 				+ movieId + "]";
 	}
 

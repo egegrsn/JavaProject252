@@ -3,8 +3,8 @@ public class Actor extends Person{
 
 	private Movie moviesAct;
 
-	public Actor(String name, int birthYear, int awardCount,int movieId) {
-		super(name, birthYear, awardCount,movieId);
+	public Actor(String name, int birthYear,int movieId) {
+		super(name, birthYear,movieId);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -33,7 +33,6 @@ public class Actor extends Person{
 	@Override
 	public String toString(){
 		return "|Actor|\nName : " + getName()
-				+ "\nBirth Year : " + getBirthYear()
-				+ "\nAward Count : " + getAwardCount();
+				+ "\nBirth Year : " + getBirthYear();
 	}
 }

@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -19,6 +20,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
+import java.awt.FlowLayout;
 
 public class AuthFrame extends JFrame {
 
@@ -33,7 +36,7 @@ public class AuthFrame extends JFrame {
 		
 		setTitle("Movie Archive Login Panel");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 453, 370);
+		setBounds(100, 100, 411, 513);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -47,12 +50,12 @@ public class AuthFrame extends JFrame {
 		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("English");
 		buttonGroup.add(rdbtnNewRadioButton_1);
 		rdbtnNewRadioButton_1.setSelected(true);
-		rdbtnNewRadioButton_1.setBounds(72, 58, 76, 25);
+		rdbtnNewRadioButton_1.setBounds(190, 27, 76, 25);
 		contentPane.add(rdbtnNewRadioButton_1);
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel.setBounds(44, 109, 308, 167);
+		panel.setBounds(42, 245, 308, 167);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -108,5 +111,18 @@ public class AuthFrame extends JFrame {
 		});
 		loginBtn.setBounds(69, 93, 97, 25);
 		panel.add(loginBtn);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(42, 64, 308, 167);
+		contentPane.add(panel_1);
+		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JLabel imageLbl = new JLabel("");
+		panel_1.add(imageLbl);
+		
+		ImageIcon image = new ImageIcon(getClass().getResource("imaj.jpg"));
+		imageLbl.setIcon(image);
+		
+		
 	}
 }

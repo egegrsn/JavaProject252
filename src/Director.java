@@ -2,8 +2,8 @@
 public class Director extends Person{
 	public Movie moviesDirected;
 	
-	public Director(String name, int birthYear, int awardCount,int movieId) {
-		super(name, birthYear, awardCount,movieId);
+	public Director(String name, int birthYear,int movieId) {
+		super(name, birthYear,movieId);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -32,7 +32,6 @@ public class Director extends Person{
 	@Override
 	public String toString(){
 		return "|Director|\nName : " + getName()
-				+ "\nBirth Year : " + getBirthYear()
-				+ "\nAward Count : " + getAwardCount();
+				+ "\nBirth Year : " + getBirthYear();
 	}
 }

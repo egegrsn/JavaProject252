@@ -14,6 +14,13 @@ public class MovieSYS {
 		return dtm;
 	}
 	
+	public static DefaultTableModel getActors(int id){
+		DB.initializeDB();
+		String sql="select * from actor where actor.actorid in (select actorid from moviesact where moviesact.movieid="+id+")";
+		DefaultTableModel dtm = DB.showTable(sql);
+		return dtm;
+	}
+	
 	public static DefaultComboBoxModel getItemsToFillComboBox(int colum) {
 		DB.initializeDB();
 		String sql = "select * from movie"; 		
@@ -24,9 +31,9 @@ public class MovieSYS {
 		return dcbm;
 	}
 	
-public static int insert(int id,String name,String year,String genre,String director,String rating) {
+public static int insert(String name,String year,String genre,String director,String rating) {
 		
-		String sql = "insert into `ctis252`.`movie` values"+"('"+id+"','"+name+"','"+genre+"','"+year+"','"+director+"','"+rating+"')";
+		String sql = "insert into `ctis252`.`movie` values"+"('"+name+"','"+genre+"','"+year+"','"+director+"','"+rating+"')";
 		System.out.println(sql);
 		return DB.executeU(sql);
 	}

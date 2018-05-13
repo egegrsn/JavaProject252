@@ -14,6 +14,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.ButtonGroup;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EtchedBorder;
 
 public class AddFrame extends JFrame {
 
@@ -24,7 +26,7 @@ public class AddFrame extends JFrame {
 	private JTextField directorTF;
 	private JLabel lblRating;
 	private JTextField ratingTF;
-	private JButton btnNewButton;
+	private JButton AddUpdateBtn;
 	private JPanel panel;
 	DefaultTableModel dtm = new DefaultTableModel();
 	ActorFrame acf = new ActorFrame(this);
@@ -40,35 +42,29 @@ public class AddFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
 		JRadioButton addRadioButton = new JRadioButton("Add");
-		addRadioButton.setSelected(true);
-		buttonGroup.add(addRadioButton);
-		addRadioButton.setBounds(316, 13, 69, 25);
-		contentPane.add(addRadioButton);
+		JPanel idPanel = new JPanel();
 		
-		JRadioButton updateRadioButton = new JRadioButton("Update");
-		buttonGroup.add(updateRadioButton);
-		updateRadioButton.setBounds(393, 13, 127, 25);
-		contentPane.add(updateRadioButton);
 		
-		btnNewButton = new JButton("Add/Update");
-		btnNewButton.addActionListener(new ActionListener() {
+		AddUpdateBtn = new JButton("Add");
+		AddUpdateBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int id=Integer.parseInt(idTF.getText());
 				if(addRadioButton.isSelected()){
-					int res=MovieSYS.insert(id,nameTF.getText(), yearTF.getText(),genreTF.getText(),directorTF.getText(), ratingTF.getText());
+					int res=MovieSYS.insert(nameTF.getText(), yearTF.getText(),genreTF.getText(),directorTF.getText(), ratingTF.getText());
 				}
 				else{
+					if(!idTF.getText().isEmpty()){
+						int res=MovieSYS.update(id,nameTF.getText(), yearTF.getText(),genreTF.getText(),directorTF.getText(), ratingTF.getText());				
+					}
 					
-					int res=MovieSYS.update(id,nameTF.getText(), yearTF.getText(),genreTF.getText(),directorTF.getText(), ratingTF.getText());				
 				}
 				mf.setTableContent();
 				dispose();
 			}
 		});
-		btnNewButton.setBounds(322, 47, 133, 52);
-		contentPane.add(btnNewButton);
+		AddUpdateBtn.setBounds(321, 93, 133, 52);
+		contentPane.add(AddUpdateBtn);
 		
 		panel = new JPanel();
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -77,58 +73,72 @@ public class AddFrame extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Movie name:");
-		lblNewLabel.setBounds(23, 63, 118, 16);
+		lblNewLabel.setBounds(29, 83, 118, 16);
 		panel.add(lblNewLabel);
 		
 		nameTF = new JTextField();
-		nameTF.setBounds(123, 57, 116, 22);
+		nameTF.setBounds(129, 77, 116, 22);
 		panel.add(nameTF);
 		nameTF.setColumns(10);
 		
 		JLabel lblYear = new JLabel("Year:");
-		lblYear.setBounds(23, 95, 118, 16);
+		lblYear.setBounds(29, 115, 118, 16);
 		panel.add(lblYear);
 		
 		yearTF = new JTextField();
-		yearTF.setBounds(123, 89, 116, 22);
+		yearTF.setBounds(129, 109, 116, 22);
 		panel.add(yearTF);
 		yearTF.setColumns(10);
 		
 		JLabel lblGenre = new JLabel("Genre:");
-		lblGenre.setBounds(23, 127, 118, 16);
+		lblGenre.setBounds(29, 147, 118, 16);
 		panel.add(lblGenre);
 		
 		genreTF = new JTextField();
-		genreTF.setBounds(123, 121, 116, 22);
+		genreTF.setBounds(129, 141, 116, 22);
 		panel.add(genreTF);
 		genreTF.setColumns(10);
 		
 		JLabel lblDirector = new JLabel("Director:");
-		lblDirector.setBounds(23, 159, 118, 16);
+		lblDirector.setBounds(29, 179, 118, 16);
 		panel.add(lblDirector);
 		
 		directorTF = new JTextField();
-		directorTF.setBounds(123, 153, 116, 22);
+		directorTF.setBounds(129, 173, 116, 22);
 		panel.add(directorTF);
 		directorTF.setColumns(10);
 		
 		lblRating = new JLabel("Rating:");
-		lblRating.setBounds(23, 194, 118, 16);
+		lblRating.setBounds(29, 214, 118, 16);
 		panel.add(lblRating);
 		
 		ratingTF = new JTextField();
-		ratingTF.setBounds(123, 188, 116, 22);
+		ratingTF.setBounds(129, 208, 116, 22);
 		panel.add(ratingTF);
 		ratingTF.setColumns(10);
 		
-		JLabel lblId = new JLabel("Id:");
-		lblId.setBounds(23, 24, 56, 16);
-		panel.add(lblId);
 		
-		idTF = new JTextField();
-		idTF.setBounds(123, 22, 116, 22);
-		panel.add(idTF);
-		idTF.setColumns(10);
+		addRadioButton.setBounds(29, 9, 69, 25);
+		panel.add(addRadioButton);
+		addRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+					idPanel.setVisible(false);
+					AddUpdateBtn.setText("Add");
+			}
+		});
+		addRadioButton.setSelected(true);
+		buttonGroup.add(addRadioButton);
+		
+		JRadioButton updateRadioButton = new JRadioButton("Update");
+		updateRadioButton.setBounds(106, 9, 127, 25);
+		panel.add(updateRadioButton);
+		updateRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				idPanel.setVisible(true);
+				AddUpdateBtn.setText("Update");
+			}
+		});
+		buttonGroup.add(updateRadioButton);
 		
 		JButton btnClose = new JButton("Close");
 		btnClose.addActionListener(new ActionListener() {
@@ -138,7 +148,23 @@ public class AddFrame extends JFrame {
 		});
 		btnClose.setBounds(331, 231, 97, 25);
 		contentPane.add(btnClose);
+	
+		idPanel.setBounds(322, 13, 188, 52);
+		contentPane.add(idPanel);
+		idPanel.setVisible(false);
+		idPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		idPanel.setLayout(null);
 		
+		idTF = new JTextField();
+		idTF.setBounds(53, 13, 116, 22);
+		idPanel.add(idTF);
+		idTF.setColumns(10);
+		
+		JLabel lblId = new JLabel("Id:");
+		lblId.setBounds(12, 16, 56, 16);
+		idPanel.add(lblId);
+
+	
 	
 	}
 }

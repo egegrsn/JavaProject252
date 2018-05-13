@@ -23,7 +23,6 @@ public class Server {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -56,24 +55,6 @@ public class Server {
 		@Override
 		public void run() {
 
-			System.out.println("Server Status: waiting for radius from client");
-			int radius;
-			try {
-				radius = Integer.parseInt(dis.readUTF());
-				System.out.println(
-						"Server Status: radius is taken from client" + clientSocket.getInetAddress().toString());
-				double area = radius * radius * Math.PI;
-				dos.writeUTF("Area of circle with " + radius + " radius : " + area);
-				System.out.println("Area send to client" + clientSocket.getInetAddress().toString());
-			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			System.out.println("END of service for client" + clientSocket.getInetAddress().toString());
 
 		}
 
