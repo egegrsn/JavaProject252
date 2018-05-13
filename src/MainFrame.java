@@ -32,7 +32,7 @@ public class MainFrame extends JFrame {
 	private JScrollPane scrollPane;
 	
 
-	public MainFrame() {
+	public MainFrame(AuthFrame authf) {
 		setTitle("Movie Archive");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 823, 380);

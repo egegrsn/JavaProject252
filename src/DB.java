@@ -18,7 +18,7 @@ public class DB {
 			Class.forName("com.mysql.jdbc.Driver");
 			System.out.println("MYSQL DBMS connection provided");
 			
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/ctis252","std","");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/252project","std","");
 			System.out.println("Database connection is provided");
 			
 			statement = connection.createStatement();
@@ -75,6 +75,7 @@ public class DB {
 				int numOfFiled = rsmd.getColumnCount();
 				for(int i=1; i<=numOfFiled; i++){
 					header.add(rsmd.getColumnName(i));
+				
 				}
 				while(rs.next()){
 					Vector  row = new Vector();
