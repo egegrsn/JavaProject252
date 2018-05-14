@@ -49,12 +49,13 @@ public class AddFrame extends JFrame {
 		AddUpdateBtn = new JButton("Add");
 		AddUpdateBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int id=Integer.parseInt(idTF.getText());
+
 				if(addRadioButton.isSelected()){
 					int res=MovieSYS.insert(nameTF.getText(), yearTF.getText(),genreTF.getText(),directorTF.getText(), ratingTF.getText());
 				}
 				else{
 					if(!idTF.getText().isEmpty()){
+						int id=Integer.parseInt(idTF.getText());
 						int res=MovieSYS.update(id,nameTF.getText(), yearTF.getText(),genreTF.getText(),directorTF.getText(), ratingTF.getText());				
 					}
 					

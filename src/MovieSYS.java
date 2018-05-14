@@ -33,14 +33,14 @@ public class MovieSYS {
 	
 public static int insert(String name,String year,String genre,String director,String rating) {
 		
-		String sql = "insert into `ctis252`.`movie` values"+"('"+name+"','"+genre+"','"+year+"','"+director+"','"+rating+"')";
+		String sql = "insert into `252project`.`movie` (`name`, `genre`, `year`, `director`, `rating`) values"+"('"+name+"','"+genre+"','"+year+"','"+director+"','"+rating+"')";
 		System.out.println(sql);
 		return DB.executeU(sql);
 	}
    
 	public static int update(int id,String name,String year,String genre,String director,String rating)
 	{		
-		String sql = "update `ctis252`.`movie` set name='"+name+"', year='"+year+"', genre='"+genre+"', director='"+director+"' where id="+id;
+		String sql = "update `252project`.`movie` set name='"+name+"', year='"+year+"', genre='"+genre+"', director='"+director+"' where id="+id;
 		System.out.println(sql);
 		return DB.executeU(sql);			
 	}
